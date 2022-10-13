@@ -74,16 +74,15 @@ class AuthController extends Controller
 
     private function getTokens(OClient $oClient, $email, $password){
         $oClient = OClient::where('password_client', 1)->first();
-
         $http = new Client();
         
         $response = $http->request('POST', url('http://127.0.0.1:8001/oauth/token'), [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => 4,
-                'client_secret' => 'S2SfWUzj5LbaBttcqeY5YVgP7IplA4jtxTVuNGgk',
-                'username' => 'spaceboy@gmail.com',
-                'password' => 'password',
+                'client_id' => $oClient->id,
+                'client_secret' => $oClient->secret,
+                'username' => $email,
+                'password' => $password,
                 'scope' => '*',
             ],
         ]);
