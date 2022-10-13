@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
+use Laravel\Passport\Client as OClient;
 
 class AuthController extends Controller
 {
@@ -26,9 +28,11 @@ class AuthController extends Controller
  
         $user = $request->user();
  
-        $token = $user->createToken('Access Token');
- 
-        $user->access_token = $token->accessToken;
+        $oClient = OClient::where('password_client', 1)->first();
+        $tokens = $this->getTokens($oClient, request('email'), request('password'));
+
+        $user->access_token = $tokens->getData()->access_token;
+        $user->refresh_token = $tokens->getData()->refresh_token;
  
         return response()->json([
             "user"=>$user
@@ -66,5 +70,25 @@ class AuthController extends Controller
         return response()->json([
             "message"=>"User logged out successfully"
         ], 200);
+    }
+
+    private function getTokens(OClient $oClient, $email, $password){
+        $oClient = OClient::where('password_client', 1)->first();
+
+        $http = new Client();
+        
+        $response = $http->request('POST', url('http://127.0.0.1:8001/oauth/token'), [
+            'form_params' => [
+                'grant_type' => 'password',
+                'client_id' => 4,
+                'client_secret' => 'S2SfWUzj5LbaBttcqeY5YVgP7IplA4jtxTVuNGgk',
+                'username' => 'spaceboy@gmail.com',
+                'password' => 'password',
+                'scope' => '*',
+            ],
+        ]);
+
+        $result = json_decode((string) $response->getBody(), true);
+        return response()->json($result, 200);
     }
 }

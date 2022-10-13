@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Api')->group(function() {
     Route::prefix('auth')->group(function(){
         Route::post('login', 'AuthController@login');
+        Route::post('refresh-token', 'AuthController@refreshToken');
         Route::post('signup', 'AuthController@signup');
     });
 
@@ -26,7 +27,7 @@ Route::namespace('Api')->group(function() {
     ], function(){
         
         
-        Route::get('helloworld', 'AuthController@index');
+        Route::get('user', 'AuthController@index');
         Route::post('logout', 'AuthController@logout');
  
     });
