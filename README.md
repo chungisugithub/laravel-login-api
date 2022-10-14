@@ -6,6 +6,24 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
+## 주저리</br>
+단순코딩의 대가 Belal Khan 선생님의 유튜브를 따라해 보았습니다.</br>
+<a href="https://www.simplifiedcoding.net/laravel-rest-api-authentication/">Building Login API with OAuth2</a>
+1. Introduction 2. Laravel Project 3. Configuring Git 4. Adding Passport 5. User Signup 6. User Login 7. User Logout 까지
+정말 라라벨이 뭔지! 패스포트가 뭘해 주는건지 모른채 단지 동영상 수업 내용처럼 동작하는것에 초점을 맞추어 따라했습니다.
+첫 번째 어려운 점은 버전 문제입니다. 라라벨의 버전이 7, 8, 9 등이 있어 문제가 발생하면, 버전을 의심해야 했습니다.
+두 번째 난관은 컨트롤러의 리프레시토큰 코드가 추가되면서 POST 요청에 아무런 답이 없을때 입니다. 동영상 7번 까지는 삽질하면서 꾸역꾸역
+따라잡았는데, 7번까지의 동영상에는 Laravel\Passport\Client를 사용하지 않았기에 깃허브의 소스코드를 보면서 왜 안될까????? 사실 제가 처음
+역인것은 리프레시토큰 입니다. OAuth에 대한 동작을 실제 코드를 통해 이해 할려 시작했는데, 따라하면서 보니 억세스토큰만 보이고, 리프레시 토큰이
+보이지 않아. 리프레시토큰을 확인해야겠다. 라는 생각으로 쉽게 포기가 되지 않았습니다.  Belal Khan 선생님이 동작이 안되는 코드를 올려 놓으시진 않았을 테니
+버전 문제이거나, 환경에 문제가 있을거라 생각하고, 버전부터 laravel 7.30으로 바꾸어 다시 시작했어나 같은 문제에 봉착했습니다. 그러면 환경문제 다.
+오류의 발생은 $request->user()가 NULL로 넘어오는 현상이 발생하고, 오류가 한번 발생하면, 앱을 재시작해야 되는 상황이 되었습니다. 그러다 구글검색에서
+하나의 힌트를 얻었습니다. VSCode 사용시 아파치가 임베디드 상태에서 동작을 하게 되는데, 이때 싱글인스턴스로 동작을 한다는 것입니다. 하나의 Http 요청이 처리중에
+또하나의 Http 요청을 하게되면, 문제가 발생하는 거지요. 먼저 요청한 프로세스를 나중에 요청한 프로세스에 의해 Kill되는 현상이 발생해서 응답이 없는 거지요. 해결방법은
+물론 저의 경우 당장 리프레시토큰이 넘어 오는 것을 보기위한 방법이지요. 하나의 앱을 포트를 달리해 두개를 실행시켜 테스트해 리프레시 토큰을 보았습니다. 이제는 조금 더
+삽질해서 XAMPP의 아파치 서버를 사용하니 정상동작하였습니다. 결론은 Belal Khan 선생님의 코드는 이상이 없고, 개발환경의 문제로 판명이 되었습니다. 이후 계속해서 동영상과
+같이 Virtual Host도 사용해보고, Docker 환경도 테스트해보고 있습니다. 결과는 저는 만족스럽습니다. 만족감도 조금, Spring Security 환경과 조금 느낌은 다르지만, Laravel Passport가
+익숙해지면 생산성이 아주 좋을것 같다는 생각입니다. 혹시나 누가 여기까지 오셨다면, 감사합니다. 좋은하루 되세요. 그리고 Belal Khan 선생님 Thank you very much. make your day..bye.
 
 ## About Laravel
 
