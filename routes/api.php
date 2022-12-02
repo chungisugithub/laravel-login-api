@@ -14,3 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::namespace('Api')->group(function(){
+	Route::prefix('auth')->group(function() {
+		Route::post('login', 'AuthController@login');
+	});
+});
