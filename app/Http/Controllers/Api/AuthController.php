@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    //
+    public function login() {
+        echo "Login Endpoint Requested";
+    }
 }
