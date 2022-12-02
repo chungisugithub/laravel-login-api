@@ -10,4 +10,12 @@ class AuthController extends Controller
     public function login() {
         echo "Login Endpoint Requested";
     }
+
+    public function signup() {
+        echo "Signup Endpoint Requested";
+    }
+
+    public function index() {
+        echo "Hello World";
+    }
 }
