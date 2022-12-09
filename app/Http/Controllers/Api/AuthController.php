@@ -24,7 +24,7 @@ class AuthController extends Controller
         $oClient = OClient::where('password_client', 1)->first();
         $http = new Client;
 
-        $response = $http->request('POST', url('http://127.0.0.1:8001').'/oauth/token', [
+        $response = $http->request('POST', url('/').'/oauth/token', [
             'form_params' => [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $refresh_token,
@@ -89,8 +89,10 @@ class AuthController extends Controller
 
     }
 
-    public function index() {
-        echo "Hello World";
+    public function index(Request $request) {
+        return response()->json([
+            "user" => $request->user()
+        ]);
     }
 
     public function logout(Request $request){
@@ -104,7 +106,7 @@ class AuthController extends Controller
         $oClient = OClient::where('password_client', 1)->first();
         $http = new Client();
         
-        $response = $http->request('POST', url('http://127.0.0.1:8001').'/oauth/token', [
+        $response = $http->request('POST', url('/').'/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => $oClient->id,
